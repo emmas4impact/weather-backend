@@ -29,4 +29,4 @@ const verifyJWT = (token) => new Promise((res, rej)=>{
     } )
 })
 
-module.exports = authenticate
+module.exports = {authenticate, verifyJWT}
