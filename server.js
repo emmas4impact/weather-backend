@@ -2,11 +2,19 @@ const express = require("express");
 const mongoose =require("mongoose")
 const listEndpoints = require("express-list-endpoints")
 const weatherRoute = require("./weather/index")
+const passport = require("passport")
+const morgan = require("morgan")
+const cookieParser = require("cookie-parser")
 
 const server = express()
 server.use(express.json())
+server.use(cookieParser())
 server.use("/weather", weatherRoute)
 console.log(listEndpoints(server))
+
+server.use(morgan())
+server.use(passport.initialize())
+
 mongoose
   .connect(process.env.MONGO_CONNECTION, {
     useNewUrlParser: true,
