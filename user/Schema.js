@@ -29,6 +29,13 @@ const loginSchema = new Schema({
         type: String,
         minlength: 7,
       },
+      favoriteCities:[
+        { 
+         type: Schema.Types.ObjectId, ref: "cities"
+    
+       }],
+
+    
 })
 loginSchema.methods.toJSON = function () {
     const user = this
