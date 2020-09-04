@@ -1,8 +1,11 @@
 const express = require("express");
-const server = express()
 const mongoose =require("mongoose")
 const listEndpoints = require("express-list-endpoints")
+const weatherRoute = require("./weather/index")
 
+const server = express()
+server.use(express.json())
+server.use("/weather", weatherRoute)
 console.log(listEndpoints(server))
 mongoose
   .connect(process.env.MONGO_CONNECTION, {
