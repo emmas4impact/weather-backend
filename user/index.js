@@ -37,6 +37,30 @@ router.get("/", authorize, async(req, res, next)=>{
         next(error)
     }
 })
+
+router.get("/:id", authorize, async(req, res, next)=>{
+  try {
+      const users = await LoginModel.findById(req.params.id)
+      res.send(users)
+  } catch (error) {
+      console.log(error)
+      next(error)
+  }
+})
+
+
+router.put("/:name", authorize, async(req, res,next)=>{
+  try {
+    const updatedUser = await LoginModel.findOneAndUpdate(req.params.name, {...req.body})
+    
+    if(updatedUser)
+      res.send("user details updated ")
+    res.send(`${req.params.name} not found`)
+  } catch (error) {
+    next(error)
+  }
+})
+
 router.post("/login", async(req, res, next)=>{
     try {
         const {email, password}= req.body
