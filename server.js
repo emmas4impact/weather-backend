@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose =require("mongoose")
 const listEndpoints = require("express-list-endpoints")
-const weatherRoute = require("./weather/index")
+const userRoute = require("./user/index")
 const passport = require("passport")
 const morgan = require("morgan")
 const cookieParser = require("cookie-parser")
@@ -9,7 +9,7 @@ const cookieParser = require("cookie-parser")
 const server = express()
 server.use(express.json())
 server.use(cookieParser())
-server.use("/weather", weatherRoute)
+server.use("/user", userRoute)
 console.log(listEndpoints(server))
 
 server.use(morgan())
