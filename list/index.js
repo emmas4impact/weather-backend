@@ -1,10 +1,9 @@
 const express =require("express")
 const CityModel = require("./Schema")
-const {authenticate }= require("../auth/authTools")
+
 const {authorize} = require("../middlewares/authorize")
 const router = express.Router()
-const bcrypt = require("bcrypt");
-const passport = require("passport");
+
 
 router.post("/", async (req, res) => {
     try {
@@ -32,20 +31,15 @@ router.get("/", authorize, async(req, res, next)=>{
 })
 
 
-router.delete("/:id", async(req, res, next)=>{
+router.delete("/:id", authorize, async(req, res, next)=>{
     try {
       
-        const user = await LoginModel.findByCredentials(email, password)
-        console.log(user)
-        const token  = await authenticate(user)
-        res.cookie("accessToken", token, {
-            path: "/",
-            httpOnly: true,
-            sameSite: true,
-          })
-        res.send(token)
+        const city = await CityModel.findByIdAndDelete(req.params.id)
+        if(!city)
+            res.send(`This ${city} is wrong, please enter right Id`)
+        res.send(`city with id ${city} Deleted successfully`)
     } catch (error) {
-        
+        next(error)
     }
     
 })
