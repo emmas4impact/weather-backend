@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken")
-const LoginModel = require("../weather/Schema")
+const LoginModel = require("../user/Schema")
 const { verifyJWT } = require("../auth/authTools")
 
 const authorize = async (req, res, next) => {
